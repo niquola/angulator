@@ -1,4 +1,5 @@
-h1 Rails Angular integration
+Rails Angular integration
+===
 
 * index angular controller (done)
 
@@ -8,6 +9,7 @@ rake db:create db:migrate db:seed
 rails s
 ```
 
-h1 TODO
+TODO
+===
 
 * CRUD angular controller
