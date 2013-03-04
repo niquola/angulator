@@ -1,0 +1,40 @@
+:coffeescript
+  window.GridCnt = ($scope, $http)->
+   $scope.page = 0
+   $scope.users = #{@users.to_json}
+   $scope.title = 'Users'
+   $scope.loading = false
+   $scope.query = '#{params[:search]}'
+
+   $scope.load = ()->
+     return if $scope.loading
+     $scope.loading = true
+     params = {page: $scope.page, search: $scope.query}
+     $http.get("#{url_for(action: 'index', format: :json)}", params: params).success (data)->
+        $scope.loading = false
+        $scope.users = data
+
+   $scope.next = ()->
+     $scope.page += 2
+     $scope.load()
+
+   $scope.prev = ()->
+     return if $scope.page == 0
+     $scope.page -= 1
+     $scope.load()
+
+   $scope.search = ()->
+     $scope.page = 0
+     $scope.load()
+
+.span9{'ng-controller' => 'GridCnt'}
+  %h1 {{title}}
+  %form.form.form-search{'ng-submit'=> 'search()'}
+    %input.search-query{type: 'text', name: 'search', 'ng-model'=> 'query'}
+    %input.btn{type: 'submit', label: 'Submit', 'ng-submit'=> 'search()'}
+    %a.btn{'ng-click' => "prev()", 'ng-disable' => "loading"} Prev
+    %a.btn{'ng-click' => "next()", 'ng-disable' => "loading"} Next
+  %table.table
+    %tr{'ng-repeat'=> 'user in users' }
+      %td {{ user.name }}
+      %td {{ user.email }}
