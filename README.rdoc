@@ -1,7 +1,13 @@
 == Rails Angular integration
 
-* GridController start
+* index angular controller (done)
+
+```
+bunle install
+rake db:create db:migrate db:seed
+rails s
+```
 
 == TODO
 
-CRUD
+* CRUD angular controller
