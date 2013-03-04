@@ -74,6 +74,8 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
+    faker (1.1.2)
+      i18n (~> 0.5)
     ffi (1.4.0)
     figaro (0.6.1)
       rails (>= 3, < 5)
@@ -207,26 +209,27 @@ PLATFORMS
 DEPENDENCIES
   better_errors (>= 0.6.0)
   binding_of_caller (>= 0.7.1)
-  capybara (>= 2.0.2)
+  capybara
   coffee-rails (~> 3.2.1)
-  database_cleaner (>= 0.9.1)
-  devise (>= 2.2.3)
-  email_spec (>= 1.4.0)
-  factory_girl_rails (>= 4.2.0)
+  database_cleaner
+  devise
+  email_spec
+  factory_girl_rails
+  faker
   figaro (>= 0.5.3)
-  haml-rails (>= 0.4)
-  html2haml (>= 1.0.1)
+  haml-rails
+  html2haml
   hub (>= 1.10.2)
   jquery-rails
-  less-rails (>= 2.2.6)
-  libv8 (>= 3.11.8)
-  pg (>= 0.14.1)
-  puma (>= 1.6.3)
+  less-rails
+  libv8
+  pg
+  puma
   quiet_assets (>= 1.0.1)
   rails (= 3.2.12)
-  rspec-rails (>= 2.12.2)
+  rspec-rails
   sass-rails (~> 3.2.3)
-  simple_form (>= 2.0.4)
-  therubyracer (>= 0.11.3)
-  twitter-bootstrap-rails (>= 2.2.4)
+  simple_form
+  therubyracer
+  twitter-bootstrap-rails
   uglifier (>= 1.0.3)

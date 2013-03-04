@@ -34,10 +34,7 @@
               %li= link_to "Link 3", "/path3"
 
     .container
-      .row
-        -#= bootstrap_flash
-        = yield
-
+      = yield
       %footer
         %p &copy; Company 2013
     /

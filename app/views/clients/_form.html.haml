@@ -1,0 +1,11 @@
+= simple_form_for(@client) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :email
+    = f.input :phone
+    = f.input :summary
+
+  .form-actions
+    = f.button :submit
