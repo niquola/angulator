@@ -1,6 +1,10 @@
 Angulator::Application.routes.draw do
-  resources :clients
+  match 'clients' => 'clients#index'
+  match 'clients/:id/edit' => 'clients#index'
+  match 'clients/:id.json' => 'clients#show'
+  match 'clients/:id' => 'clients#index'
 
+  resources :clients
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

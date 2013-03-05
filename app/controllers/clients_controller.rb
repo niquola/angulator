@@ -2,14 +2,16 @@ class ClientsController < ApplicationController
   respond_to :json, :html
 
   def index
-    @title = "Clients"
-    limit = 10
-    page = (params[:page] || 0).to_i
-    search = params[:search]
-    @items = Client.limit(limit).offset(page*limit).order(:name)
-    @items = @items.where(['name ilike ?', "#{search}%"]) if search.present?
-    @count = Client.count
-
+    if request.xhr?
+      limit = 10
+      page = (params[:page] || 0).to_i
+      search = params[:search]
+      @items = Client.limit(limit).offset(page*limit).order(:name)
+      @items = @items.where(['name ilike ?', "#{search}%"]) if search.present?
+      @count = Client.count
+    else
+      @items = []
+    end
     respond_with(@items)
   end
 
@@ -18,15 +20,9 @@ class ClientsController < ApplicationController
     respond_with(@client)
   end
 
-  # GET /clients/new
-  # GET /clients/new.json
   def new
     @client = Client.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @client }
-    end
+    respond_with(@client)
   end
 
   # GET /clients/1/edit

@@ -4,11 +4,12 @@
     $routeProvider.when '/clients/',
       template: #{render(partial: 'grid').to_json}
 
+    $routeProvider.when '/clients/:id/edit',
+      template: "#{j(render(partial: 'form'))}"
+
     $routeProvider.when '/clients/:id',
       template: #{render(partial: 'client').to_json}
 
-    $routeProvider.when '/clients/:id/edit',
-      template: "#{j(render(partial: 'form'))}"
 
     $locationProvider.html5Mode(true)
 
@@ -18,7 +19,7 @@
     $scope.$routeParams = $routeParams
 
   window.ShowCnt = ($scope, $routeParams, $http)->
-    $http.get('/clients/' + $routeParams.id).success (data)->
+    $http.get('/clients/' + $routeParams.id + '.json').success (data)->
       $scope.item = data
 
   window.GridCnt = ($scope, $http)->
@@ -31,7 +32,7 @@
      return if $scope.loading
      $scope.loading = true
      params = {page: $scope.page, search: $scope.query}
-     $http.get("/clients", params: params).success (data)->
+     $http.get("/clients.json", params: params).success (data)->
         $scope.loading = false
         $scope.items = data
 
