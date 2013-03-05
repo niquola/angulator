@@ -1,9 +1,29 @@
+- @ng_app = 'ngView'
 :coffeescript
+  angular.module 'ngView', [], ($routeProvider, $locationProvider)->
+    $routeProvider.when '/clients/',
+      template: #{render(partial: 'grid').to_json}
+
+    $routeProvider.when '/clients/:id',
+      template: #{render(partial: 'client').to_json}
+
+    $routeProvider.when '/clients/:id/edit',
+      template: "#{j(render(partial: 'form'))}"
+
+    $locationProvider.html5Mode(true)
+
+  window.MainCntl = ($scope, $route, $routeParams, $location)->
+    $scope.$route = $route
+    $scope.$location = $location
+    $scope.$routeParams = $routeParams
+
+  window.ShowCnt = ($scope, $routeParams, $http)->
+    $http.get('/clients/' + $routeParams.id).success (data)->
+      $scope.item = data
+
   window.GridCnt = ($scope, $http)->
    $scope.page = 0
-   $scope.items = #{@items.to_json}
-   $scope.title = '#{@title}'
-   $scope.count = #{@count}
+   $scope.title = 'Clients'
    $scope.loading = false
    $scope.query = '#{params[:search]}'
 
@@ -11,7 +31,7 @@
      return if $scope.loading
      $scope.loading = true
      params = {page: $scope.page, search: $scope.query}
-     $http.get("#{url_for(action: 'index', format: :json)}", params: params).success (data)->
+     $http.get("/clients", params: params).success (data)->
         $scope.loading = false
         $scope.items = data
 
@@ -28,20 +48,7 @@
      $scope.page = 0
      $scope.load()
 
-%div{'ng-controller' => 'GridCnt'}
-  %h1 {{title}} [{{page*10}} of {{count}}]
-  %form.well.form.form-search{'ng-submit'=> 'search()'}
-    %input.search-query{type: 'text', name: 'search', 'ng-model'=> 'query'}
-    %input.btn{type: 'submit', label: 'Submit', 'ng-submit'=> 'search()'}
-    %a.btn{'ng-click' => "prev()", 'ng-disable' => "loading"} Prev
-    %a.btn{'ng-click' => "next()", 'ng-disable' => "loading"} Next
-  %table.table
-    %thead
-      %tr
-        %th Name
-        %th Email
-        %th.span6 Summary
-    %tr{'ng-repeat'=> 'item in items' }
-      %td {{ item.name }}
-      %td {{ item.email }}
-      %td {{ item.summary }}
+   $scope.load()
+
+%div{'ng-controller'=>'MainCntl'}
+  %div{'ng-view'=>''}

@@ -1,0 +1,19 @@
+%div{'ng-controller' => 'GridCnt'}
+  %h1 {{title}} [{{page*10}}]
+  %form.well.form.form-search{'ng-submit'=> 'search()'}
+    %input.search-query{type: 'text', name: 'search', 'ng-model'=> 'query'}
+    %input.btn{type: 'submit', label: 'Submit', 'ng-submit'=> 'search()'}
+    %a.btn{'ng-click' => "prev()", 'ng-disable' => "loading"} Prev
+    %a.btn{'ng-click' => "next()", 'ng-disable' => "loading"} Next
+  %table.table
+    %thead
+      %tr
+        %th Name
+        %th Email
+        %th.span6 Summary
+    %tr{'ng-repeat'=> 'item in items' }
+      %td
+        %a(href="/clients/{{item.id}}") {{ item.name }}
+        %a(href="/clients/{{item.id}}/edit") edit
+      %td {{ item.email }}
+      %td {{ item.summary }}

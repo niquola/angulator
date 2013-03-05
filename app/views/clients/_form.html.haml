@@ -1,11 +1,13 @@
-= simple_form_for(@client) do |f|
-  = f.error_notification
+%div{'ng-controller' => 'ShowCnt'}
+  = simple_form_for(:client, defaults: { input_html:{ class: 'span5'}}, html: {class: 'form-horizontal'}) do |f|
+    = f.error_notification
 
-  .form-inputs
-    = f.input :name
-    = f.input :email
-    = f.input :phone
-    = f.input :summary
+    .form-inputs
+      = f.input :name, input_html: {'ng-model'=> 'item.name'}
+      = f.input :email, input_html: {'ng-model'=> 'item.email'}
+      = f.input :phone, input_html: {'ng-model'=> 'item.phone'}
+      = f.input :summary,as: :text, input_html: {'ng-model'=> 'item.summary'}
 
-  .form-actions
-    = f.button :submit
+    .form-actions
+      = f.button :submit
+      %a(href="/clients") Cancel

@@ -1,5 +1,5 @@
 !!! 5
-%html{lang:"en",'ng-app'=>(content_for?(:ng_app) ? yield(:ng_app) : '')}
+%html{lang:"en",'ng-app'=> @ng_app }
   %head
     %meta(charset="utf-8")
     %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
@@ -10,11 +10,11 @@
     /[if lt IE 9]
       = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js"
     = stylesheet_link_tag "application", :media => "all"
-    %link(href="images/apple-touch-icon-144x144.png" rel="apple-touch-icon-precomposed" sizes="144x144")
-    %link(href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon-precomposed" sizes="114x114")
-    %link(href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon-precomposed" sizes="72x72")
-    %link(href="images/apple-touch-icon.png" rel="apple-touch-icon-precomposed")
-    %link(href="favicon.ico" rel="shortcut icon")
+    %link(href="/images/apple-touch-icon-144x144.png" rel="apple-touch-icon-precomposed" sizes="144x144")
+    %link(href="/images/apple-touch-icon-114x114.png" rel="apple-touch-icon-precomposed" sizes="114x114")
+    %link(href="/images/apple-touch-icon-72x72.png" rel="apple-touch-icon-precomposed" sizes="72x72")
+    %link(href="/images/apple-touch-icon.png" rel="apple-touch-icon-precomposed")
+    %link(href="/favicon.ico" rel="shortcut icon")
     %script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js")
 
 
@@ -29,9 +29,7 @@
           %a.brand(href="#") Angulator
           .container.nav-collapse
             %ul.nav
-              %li= link_to "Link 1", "/path1"
-              %li= link_to "Link 2", "/path2"
-              %li= link_to "Link 3", "/path3"
+              %li= link_to "Clients", "/clients"
 
     .container
       = yield

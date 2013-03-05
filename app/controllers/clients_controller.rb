@@ -15,11 +15,7 @@ class ClientsController < ApplicationController
 
   def show
     @client = Client.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @client }
-    end
+    respond_with(@client)
   end
 
   # GET /clients/new
