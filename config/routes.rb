@@ -1,8 +1,9 @@
 Angulator::Application.routes.draw do
-  match 'clients' => 'clients#index'
-  match 'clients/:id/edit' => 'clients#index'
-  match 'clients/:id.json' => 'clients#show'
-  match 'clients/:id' => 'clients#index'
+  post 'clients' => 'clients#create'
+  get 'clients/:id.:format' => 'clients#show'
+  get 'clients' => 'clients#index'
+  get 'clients/:id/edit' => 'clients#index'
+  get 'clients/:id' => 'clients#index'
 
   resources :clients
 

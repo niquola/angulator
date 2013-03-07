@@ -1,55 +1,19 @@
 - @ng_app = 'ngView'
 :coffeescript
-  angular.module 'ngView', [], ($routeProvider, $locationProvider)->
+  window.ngView = angular.module 'ngView', [], ($routeProvider, $locationProvider)->
     $routeProvider.when '/clients/',
       template: #{render(partial: 'grid').to_json}
 
     $routeProvider.when '/clients/:id/edit',
       template: "#{j(render(partial: 'form'))}"
 
+    $routeProvider.when '/clients/new',
+      template: "#{j(render(partial: 'form'))}"
+
     $routeProvider.when '/clients/:id',
       template: #{render(partial: 'client').to_json}
 
-
     $locationProvider.html5Mode(true)
-
-  window.MainCntl = ($scope, $route, $routeParams, $location)->
-    $scope.$route = $route
-    $scope.$location = $location
-    $scope.$routeParams = $routeParams
-
-  window.ShowCnt = ($scope, $routeParams, $http)->
-    $http.get('/clients/' + $routeParams.id + '.json').success (data)->
-      $scope.item = data
-
-  window.GridCnt = ($scope, $http)->
-   $scope.page = 0
-   $scope.title = 'Clients'
-   $scope.loading = false
-   $scope.query = '#{params[:search]}'
-
-   $scope.load = ()->
-     return if $scope.loading
-     $scope.loading = true
-     params = {page: $scope.page, search: $scope.query}
-     $http.get("/clients.json", params: params).success (data)->
-        $scope.loading = false
-        $scope.items = data
-
-   $scope.next = ()->
-     $scope.page += 1
-     $scope.load()
-
-   $scope.prev = ()->
-     return if $scope.page == 0
-     $scope.page -= 1
-     $scope.load()
-
-   $scope.search = ()->
-     $scope.page = 0
-     $scope.load()
-
-   $scope.load()
 
 %div{'ng-controller'=>'MainCntl'}
   %div{'ng-view'=>''}

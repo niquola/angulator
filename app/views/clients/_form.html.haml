@@ -1,13 +1,31 @@
-%div{'ng-controller' => 'ShowCnt'}
-  = simple_form_for(:client, defaults: { input_html:{ class: 'span5'}}, html: {class: 'form-horizontal'}) do |f|
+%div{'ng-controller' => 'FormCnt'}
+  = simple_form_for(:client,
+    defaults: { input_html:{ class: 'span5'}},
+    url: nil,
+    html: { class: 'form-horizontal',
+      name: 'form', 'ng-controller'=>'FormCnt',
+      'onsubmit'=>'return false',
+      'ng-submit'=>'submit()'}) do |f|
     = f.error_notification
+    .alert.alert-error{'ng-show'=>'item.errors'}
+      %p{ 'ng-repeat'=> '(attr, error) in item.errors' }
+        %b {{attr}}
+        %span {{error.join(', ')}}
 
     .form-inputs
-      = f.input :name, input_html: {'ng-model'=> 'item.name'}
+      -#TODO: we need customized simple form with errors and ng-models
+      .control-group.string.required.client_name{ "ng-class" => "item.errors.name | errorCls"}
+        %label.string.required.control-label{:for => "client_name"}
+          %abbr{:title => "required"} *
+          Name
+        .controls
+          %input#client_name.string.required.span5{:name => "client[name]", "ng-model" => "item.name", :type => "text"}/
+      -#= f.input :name, input_html: {'ng-model'=> 'item.name'}
       = f.input :email, input_html: {'ng-model'=> 'item.email'}
       = f.input :phone, input_html: {'ng-model'=> 'item.phone'}
-      = f.input :summary,as: :text, input_html: {'ng-model'=> 'item.summary'}
+      = f.input :summary,as: :text, input_html: {'ng-model'=> 'item.summary', style: 'height: 40px;'}
 
     .form-actions
-      = f.button :submit
+      %span.btn.disabled{"ng-show"=> "!form.$dirty"} No changes!
+      %button.btn{"ng-show"=> "form.$dirty"} Save
       %a(href="/clients") Cancel

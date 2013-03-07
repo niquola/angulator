@@ -2,16 +2,12 @@ class ClientsController < ApplicationController
   respond_to :json, :html
 
   def index
-    if request.xhr?
-      limit = 10
-      page = (params[:page] || 0).to_i
-      search = params[:search]
-      @items = Client.limit(limit).offset(page*limit).order(:name)
-      @items = @items.where(['name ilike ?', "#{search}%"]) if search.present?
-      @count = Client.count
-    else
-      @items = []
-    end
+    limit = 10
+    page = (params[:page] || 0).to_i
+    search = params[:search]
+    @items = Client.limit(limit).offset(page*limit).order(:name)
+    @items = @items.where(['name ilike ?', "#{search}%"]) if search.present?
+    @count = Client.count
     respond_with(@items)
   end
 
@@ -20,57 +16,35 @@ class ClientsController < ApplicationController
     respond_with(@client)
   end
 
-  def new
-    @client = Client.new
-    respond_with(@client)
-  end
-
-  # GET /clients/1/edit
   def edit
     @client = Client.find(params[:id])
   end
 
-  # POST /clients
-  # POST /clients.json
   def create
-    @client = Client.new(params[:client])
-
-    respond_to do |format|
-      if @client.save
-        format.html { redirect_to @client, notice: 'Client was successfully created.' }
-        format.json { render json: @client, status: :created, location: @client }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
-      end
-    end
+    @client = Client.new(sanitize_attrs(params[:client]))
+    @client.save
+    render json: @client
   end
 
-  # PUT /clients/1
-  # PUT /clients/1.json
   def update
     @client = Client.find(params[:id])
-
-    respond_to do |format|
-      if @client.update_attributes(params[:client])
-        format.html { redirect_to @client, notice: 'Client was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
-      end
-    end
+    @client.update_attributes(sanitize_attrs(params[:client]))
+    render json: @client
   end
 
-  # DELETE /clients/1
-  # DELETE /clients/1.json
   def destroy
     @client = Client.find(params[:id])
     @client.destroy
+    respond_with(@client, url_for(aciton: 'index'))
+  end
 
-    respond_to do |format|
-      format.html { redirect_to clients_url }
-      format.json { head :no_content }
-    end
+  private
+  def sanitize_attrs(attrs)
+    attrs = attrs.dup
+    attrs.delete(:id)
+    attrs.delete(:updated_at)
+    attrs.delete(:created_at)
+    attrs.delete(:errors)
+    attrs
   end
 end
