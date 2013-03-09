@@ -4,20 +4,24 @@ class ClientsController < ApplicationController
   def index
     limit = 10
     page = (params[:page] || 0).to_i
-    search = params[:search]
-    @items = Client.limit(limit).offset(page*limit).order(:name)
-    @items = @items.where(['name ilike ?', "#{search}%"]) if search.present?
-    @count = Client.count
+
+    @items = Client
+    .search(params[:search])
+    .limit(limit)
+    .offset(page*limit)
+    .order(:name)
+
     respond_with(@items)
   end
 
   def show
     @client = Client.find(params[:id])
-    respond_with(@client)
+    respond_with @client
   end
 
   def edit
     @client = Client.find(params[:id])
+    respond_with @client
   end
 
   def create
@@ -35,10 +39,11 @@ class ClientsController < ApplicationController
   def destroy
     @client = Client.find(params[:id])
     @client.destroy
-    respond_with(@client, url_for(aciton: 'index'))
+    render json: @client
   end
 
   private
+
   def sanitize_attrs(attrs)
     attrs = attrs.dup
     attrs.delete(:id)

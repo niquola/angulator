@@ -1,18 +1,15 @@
-%p#notice= notice
+%div{'ng-controller' => 'ShowCnt'}
+  %h1
+    {{ item.name }}
+    %small
+      %a.btn(href="/clients/{{item.id}}/edit") edit
 
-%p
-  %b Name:
-  = @client.name
-%p
-  %b Email:
-  = @client.email
-%p
-  %b Phone:
-  = @client.phone
-%p
-  %b Summary:
-  = @client.summary
+  %ul.breadcrumb
+    %li
+      %a(href="/clients")Clients
+      %span.divider /
+    %li.active {{item.name}}
 
-= link_to 'Edit', edit_client_path(@client)
-\|
-= link_to 'Back', clients_path
+
+  %p {{ item.email }}
+  %p {{ item.summary }}

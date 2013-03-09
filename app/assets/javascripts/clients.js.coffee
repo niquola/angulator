@@ -1,14 +1,9 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
-window.ngView.filter 'errorCls', ()->
+window.myapp.filter 'errorCls', ()->
   (input)->
     return input && "error"
-
-window.MainCntl = ($scope, $route, $routeParams, $location)->
-  $scope.$route = $route
-  $scope.$location = $location
-  $scope.$routeParams = $routeParams
 
 window.ShowCnt = ($scope, $routeParams, $http)->
   $http.get('/clients/' + $routeParams.id + '.json').success (data)->
@@ -22,18 +17,27 @@ window.FormCnt = ($scope, $routeParams,$location, $http)->
     $scope.progress = true
 
     if $routeParams.id
-      $http.put("/clients/#{$scope.item.id}.json", client:$scope.item).success (data)->
-        $scope.progress = false
-        $scope.form.$setPristine()
-        $scope.item = data
-    else
-      $http.post("/clients/", client:$scope.item).success (data)->
-        console.log(data)
-        $scope.progress = false
-        if data.id
-          $location.path("/clients/#{data.id}")
-        else
+      $http.put("/clients/#{$scope.item.id}.json", client:$scope.item)
+        .success (data)->
+          console.log('ok', data)
+          $scope.progress = false
           $scope.form.$setPristine()
+          $scope.item = data
+        .error (data)->
+          console.log('errors',data)
+          $scope.item = data
+    else
+      $http.post("/clients.json", client:$scope.item)
+        .success (data)->
+          console.log('ok', data)
+          $scope.progress = false
+          if data.id
+            $location.path("/clients/#{data.id}")
+          else
+            $scope.form.$setPristine()
+            $scope.item = data
+        .error (data)->
+          console.log('created',data)
           $scope.item = data
 
 window.NewFormCnt = ($scope, $routeParams, $http)->

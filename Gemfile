@@ -36,8 +36,8 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 
-gem "puma"
 gem "pg"
+gem "thin"
 gem "haml-rails"
 gem "html2haml"
 gem "rspec-rails"
