@@ -1,0 +1,27 @@
+.calendar{'ng-controller' => 'CalendarCnt'}
+  .day.hh
+    .hour
+      %b &nbsp;
+    .hour{'ng-repeat'=>'hour in hours'} {{hour}}
+  .day{'ng-repeat'=>'day in days'}
+    .hour
+      %b {{day | date: 'EEE dd/MM' }}
+    .hour{'ng-repeat'=>'hour in hours', 'ng-click' => 'addEvent(day, hour)'}
+      &nbsp;
+
+  .modal{'ng-show' => 'newEvent.day'}
+    .modal-header
+      %button.close{'ng-click' => 'newEvent = null', type: 'button'} &times;
+      %h3 New event in {{ newEvent.day | date }} {{newEvent.hour}}
+    .modal-body
+      Date
+      %select.span2{"ng-model" => "newEvent.day", "ng-options" => "d for d in days"}
+        %option{:value => ""} -- chose day --
+      Hour
+      %select.span1{"ng-model" => "newEvent.hour", "ng-options" => "h for h in hours"}
+        %option{:value => ""} -- chose hour --
+      %textarea.span5
+    .modal-footer
+      %a.btn{'ng-click' => 'newEvent = null'} Close
+      %a.btn.btn-primary{:href => "#"} Save changes
+
