@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :intercept_html_requests
   layout nil
+  respond_to :json, :html
 
   private
 

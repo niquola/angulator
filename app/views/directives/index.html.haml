@@ -1,0 +1,4 @@
+.directives{'ng-controller' => 'dirCnt'}
+  %ul.nav.nav-pills( xselection="li")
+    %li(ng-repeat="item in items")
+      %a(ng-click="selected(item)") <b>{{item.mark}}</b> {{item.label}}

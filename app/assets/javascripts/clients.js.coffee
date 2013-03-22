@@ -5,9 +5,14 @@ window.myapp.filter 'errorCls', ()->
   (input)->
     return input && "error"
 
-window.ShowCnt = ($scope, $routeParams, $http)->
-  $http.get('/clients/' + $routeParams.id + '.json').success (data)->
-    $scope.item = data
+window.NewFormCnt = ($scope, $routeParams, $http)->
+  $scope.item = {}
+  $scope.submit = (ev)->
+    $scope.progress = true
+    $http.post("/clients.json", client:$scope.item).success (data)->
+      $scope.progress = false
+      $scope.form.$setPristine()
+      $scope.item = data
 
 window.FormCnt = ($scope, $routeParams,$location, $http)->
   if $routeParams.id
@@ -40,40 +45,3 @@ window.FormCnt = ($scope, $routeParams,$location, $http)->
           console.log('created',data)
           $scope.item = data
 
-window.NewFormCnt = ($scope, $routeParams, $http)->
-  $scope.item = {}
-  $scope.submit = (ev)->
-    $scope.progress = true
-    $http.post("/clients.json", client:$scope.item).success (data)->
-      $scope.progress = false
-      $scope.form.$setPristine()
-      $scope.item = data
-
-window.GridCnt = ($scope, $http)->
- $scope.page = 0
- $scope.title = 'Clients'
- $scope.loading = false
- $scope.query = ''
-
- $scope.load = ()->
-   return if $scope.loading
-   $scope.loading = true
-   params = {page: $scope.page, search: $scope.query}
-   $http.get("/clients.json", params: params).success (data)->
-      $scope.loading = false
-      $scope.items = data
-
- $scope.next = ()->
-   $scope.page += 1
-   $scope.load()
-
- $scope.prev = ()->
-   return if $scope.page == 0
-   $scope.page -= 1
-   $scope.load()
-
- $scope.search = ()->
-   $scope.page = 0
-   $scope.load()
-
- $scope.load()

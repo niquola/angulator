@@ -14,4 +14,13 @@ window.myapp = angular.module 'myapp', [], ($routeProvider, $locationProvider)->
   $routeProvider.when '/calendar',
     templateUrl: "/calendar.tpl"
 
+  $routeProvider.when '/directives',
+    templateUrl: "/directives.tpl"
+
+  $routeProvider.when '/roadmaps',
+    templateUrl: "/roadmaps.tpl"
+
+  $routeProvider.when '/roadmaps/:id',
+    templateUrl: "/roadmaps/0.tpl"
+
   $locationProvider.html5Mode(true)

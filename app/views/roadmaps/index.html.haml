@@ -1,0 +1,11 @@
+%div{'ng-controller' => 'GridCnt'}
+  %table.table
+    %thead
+      %tr
+        %th Name
+    %tr{'ng-repeat'=> 'item in items' }
+      %td
+        %a(href="/roadmaps/{{item.id}}") {{ item.name }}
+    %tr(ng-show = "items.length == 0")
+      %td
+        %b Nothing...
