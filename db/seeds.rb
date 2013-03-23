@@ -12,3 +12,5 @@
     u.summary= Faker::Lorem.paragraph
   end.save
 end
+
+Roadmap.create(name: 'Angulator', description: "Objectives\n* Step 1\nMilestones\n* Step 1")

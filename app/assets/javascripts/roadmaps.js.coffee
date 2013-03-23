@@ -12,3 +12,5 @@ window.RoadmapCnt = ($scope, $routeParams, $http)->
         roads.push(last_road)
     #console.log(roads)
     $scope.roads = roads
+  $scope.$watch 'item', ->
+    $scope.parse() if $scope.item
