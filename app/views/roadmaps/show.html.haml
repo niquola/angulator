@@ -1,3 +1,15 @@
 %div(ng-controller="ShowCnt")
-  %h1 {{item.name}}
-  %p {{item.description}}
+  %h3
+    {{item.name}}
+    %a.btn Save
+  .row(ng-controller="RoadmapCnt")
+    .span3
+      %textarea(style="height: 500px;" ng-change="parse()" ng-model="item.description")
+    .span9
+      .road(ng-repeat="road in roads" )
+        %b {{road.name}}
+        .milestone( ng-repeat="milestone in road.milestones" draggable="true" ng-style="{width: milestone.length * 20}" )
+          {{milestone.name}}
+:css
+  .road { position:relative; padding: 5px; border-top:1px solid #ddd; resize: both; }
+  .milestone { background: #eef; border:1px solid #ddd; margin: 5px; padding:5px 20px; display:inline-block; overflow:hidden; }

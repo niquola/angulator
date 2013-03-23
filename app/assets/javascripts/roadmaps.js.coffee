@@ -1,3 +1,14 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+window.RoadmapCnt = ($scope, $routeParams, $http)->
+  $scope.parse = ->
+    roads = []
+    last_road = null
+    $scope.item.description.split("\n").forEach (i)->
+      if i.match(/^\*/)
+        if last_road
+          ms = i.replace(/^\s*\*\s*/,'')
+          last_road.milestones.push(name: ms,length: 3) if ms
+      else
+        last_road = {name: i, milestones: []} if i
+        roads.push(last_road)
+    #console.log(roads)
+    $scope.roads = roads

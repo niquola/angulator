@@ -18,6 +18,7 @@ window.dirCnt = ($scope, $http)->
   $http.get('/directives.json').success (data)->
     $scope.items = data
 
+
 window.myapp.directive "mySelection", () ->
   priority: 0
   #template: "<div></div>"

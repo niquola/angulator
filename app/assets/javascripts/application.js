@@ -15,3 +15,4 @@
 //= require twitter/bootstrap
 //= require 'lib/angular'
 //= require_tree .
+//= require_tree ./directives
