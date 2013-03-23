@@ -42,6 +42,5 @@ window.FormCnt = ($scope, $routeParams,$location, $http)->
             $scope.form.$setPristine()
             $scope.item = data
         .error (data)->
-          console.log('created',data)
           $scope.item = data
 

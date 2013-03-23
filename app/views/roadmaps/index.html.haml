@@ -9,3 +9,7 @@
     %tr(ng-show = "items.length == 0")
       %td
         %b Nothing...
+  %form.form-search(ng-controller="NewRoadmapCnt" ng-submit="submit()")
+    .form-row
+      %input(type="text" placeholder="Roadmap Name" ng-model="item.name")
+      %button.btn Create
