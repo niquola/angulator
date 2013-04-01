@@ -12,4 +12,10 @@
       .ts(ng-click="pick($event, resource)")>
         .event(draggable ng-repeat="event in resource.events" ng-style="eventPosition(event)")
           {{event.name}}
+          %a(ng-click="setCurrentEvent(event, $event)") edit
+  #event-form(ng-show="currentEvent")
+    %h1
+      {{currentResource.name}}
+      %a(ng-click="closeEvent()") X
+    %p {{currentEvent | json}}
 

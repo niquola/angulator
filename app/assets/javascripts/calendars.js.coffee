@@ -3,6 +3,15 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 window.CalendarCnt = ($scope, $routeParams, $http)->
   vertical_step = 50
+
+  $scope.setCurrentEvent = (event, ev)->
+    $scope.currentEvent = event
+    jQuery('#event-form').show()
+
+  $scope.closeEvent = ()->
+    $scope.currentEvent = null
+
+  #FIXME: implement as filter
   $scope.eventPosition = (ev)->
     top = ev.time * vertical_step - 1
     height = ev.duration * vertical_step
