@@ -18,25 +18,26 @@ window.CalendarCnt = ($scope, $routeParams, $http)->
 
 window.myapp.
   directive 'draggable', ($document)->
-    startX=0
-    startY=0
-    x = 0
-    y = 0
     return (scope, element, attr)->
+      startX=0
+      startY=0
+      x = 0
+      y = 0
       mousemove = (event)->
-        y = event.screenY - startY
-        x = event.screenX - startX
-        element.css(top: y + 'px', left:  x + 'px')
+        dy = event.screenY - startY
+        dx = event.screenX - startX
+        element.css(top: y + dy + 'px', left:  x + dx + 'px')
 
       mouseup = ()->
         $document.unbind('mousemove', mousemove)
         $document.unbind('mouseup', mouseup)
-        element.css
-          position: 'absolute',
-          cursor: 'pointer'
 
       element.bind 'mousedown', (event)->
-        startX = event.screenX - x
-        startY = event.screenY - y
+        element.css(position: 'absolute', cursor: 'pointer')
+        position = element.position()
+        y = position.top
+        x = position.left
+        startX = event.screenX
+        startY = event.screenY
         $document.bind('mousemove', mousemove)
         $document.bind('mouseup', mouseup)
