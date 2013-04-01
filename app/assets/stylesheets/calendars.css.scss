@@ -1,25 +1,49 @@
 // Place all the styles related to the calendars controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.calendar {
-  border-right: 1px solid #ddd;
-  display: inline-block;
-  .day {
-    vertical-align: top;
+.clnd {
+  .cl {
     display: inline-block;
-    width: 10em;
-    border-top: 1px solid #ddd;
-    margin: 0px;
-    &.hh {
-      width: 4em;
+    border: 1px solid #ddd;
+    border-left: none;
+    border-bottom: none;
+    &.ttcl {
+      border-left: 1px solid #ddd;
       color: gray;
     }
-    .hour {
+    padding:0;
+    margin: 0;
+    vertical-align: top;
+    .ttl {
+      padding: 5px;
+      background: yellow;
       border-bottom: 1px solid #ddd;
-      border-left: 1px solid #ddd;
-      padding: 0 5px;
-      &:hover {
-        background: #f1f2f2;
+    }
+    .tt {
+      height: 40px;
+      background: url(asset_path('grd.png',image));
+      padding: 5px;
+    }
+    .ts {
+      background: url(asset_path('grd.png',image));
+      padding:0;
+      margin: 0;
+      display: inline-block;
+      width: 140px;
+      height: 24*50px;
+      position: relative;
+      .event {
+        background: #eee;
+        width: 100px;
+        padding: 5px;
+        margin-left: 5px;
+        border: 1px solid #ddd;
+        position: absolute;
+        height: 50px;
+        border-radius: 5px;
+        &:hover {
+          border-color: #ccc;
+        }
       }
     }
   }

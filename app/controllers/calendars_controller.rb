@@ -8,6 +8,35 @@ class CalendarsController < ApplicationController
 
     @days = (start_date..end_date).to_a
 
-    respond_with(days: @days, hours: (0..24))
+    respond_with(data)
+  end
+
+  def data
+    {
+      timespans: (0..23).to_a,
+      resources: [
+        {
+          name: 'AjBolit',
+          events: [
+             {name: 'Visit 1', time: 2, duration: 0.6},
+             {name: 'Visit 2', time: 4, duration: 1.2},
+             {name: 'Visit 3', time: 6, duration: 3.1}
+          ]
+        },
+        {
+          name: 'Valerjan',
+          events: [
+             {name: 'Visit 1', time: 1, duration: 0.6},
+             {name: 'Visit 2', time: 7, duration: 1.2}
+          ]
+        },
+        {
+          name: 'Jivago',
+          events: [
+             {name: 'Visit 1', time: 3, duration: 3}
+          ]
+        }
+      ]
+    }
   end
 end
