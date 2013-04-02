@@ -1,21 +1,13 @@
 .clnd.row{'ng-controller' => 'CalendarCnt'}
   .span3
-    %h2 {{currentResource.name}}
-    %h3 Selected Hour {{selectedHour}}
+    %h2 Ups drag items
   .span9
-    .cl.ttcl>
-      .ttl Time
-      .tt(ng-repeat="span in timespans")
-        {{span}}:00
-    .cl(ng-repeat="resource in resources")>
-      .ttl {{resource.name}}
-      .ts(ng-click="pick($event, resource)")>
-        .event(draggable ng-repeat="event in resource.events" ng-style="eventPosition(event)")
-          {{event.name}}
-          %a(ng-click="setCurrentEvent(event, $event)") edit
-  #event-form(ng-show="currentEvent")
-    %h1
-      {{currentResource.name}}
-      %a(ng-click="closeEvent()") X
-    %p {{currentEvent | json}}
-
+    .cal
+      .event(draggable style="position: absolute; top:80px; left:0; height: 20px;") Hello
+      .event(draggable style="position: absolute; top:40px; left:0; height: 20px;") Hello
+      %svg.grid{:xmlns => "http://www.w3.org/2000/svg"}
+        %defs
+          %pattern#grid{:height => "40", :patternunits => "userSpaceOnUse", :width => "150"}
+            %path{:d => "M 150 0 L 0 0 0 40", :fill => "none", :stroke => "#dddddd", "stroke-width" => "1"}
+            %path{:d => "M 150 20 L 0 20", :fill => "none", :stroke => "#eee", "stroke-width" => "1"}
+        %rect{:fill => "url(#grid)", :height => "100%", :width => "100%"}/

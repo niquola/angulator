@@ -1,6 +1,46 @@
 // Place all the styles related to the calendars controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.cal {
+  position: relative;
+  width: 450px;
+  height: 24*40px;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  .grid {
+    top:0;
+    left:0;
+    position: absolute;
+    z-index: -1;
+    width: 450px;
+    height: 40*24px;
+    pattern {
+      height: 40px;
+    }
+  }
+  .event {
+    background: #eee;
+    width: 100px;
+    padding: 2px;
+    font-size: 10px;
+    line-height: 16px;
+    overflow: hidden;
+    margin-left: 5px;
+    border: 1px solid #ddd;
+    position: absolute;
+    height: 50px;
+    border-radius: 5px;
+    z-index: 10;
+    -webkit-user-select: none; /* Safari, Chrome */
+    -khtml-user-select: none; /* Konqueror */
+    -moz-user-select: none; /* Firefox */
+    user-select: none; /* CSS3 */
+    &:hover {
+      border-color: #ccc;
+    }
+  }
+}
+
 #event-form {
   position: absolute;
   top: 50%;
