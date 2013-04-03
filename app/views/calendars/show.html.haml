@@ -2,9 +2,9 @@
   .span3
     %h2 Ups drag items
   .span9
-    .cal
-      .event(draggable style="position: absolute; top:80px; left:0; height: 20px;") Hello
-      .event(draggable style="position: absolute; top:40px; left:0; height: 20px;") Hello
+    .cal(calendar columns="5")
+      .event(style="position: absolute; top:80px; left:0; height: 20px;") Hello
+      .event(style="position: absolute; top:40px; left:0; height: 20px;") Hello
       %svg.grid{:xmlns => "http://www.w3.org/2000/svg"}
         %defs
           %pattern#grid{:height => "40", :patternunits => "userSpaceOnUse", :width => "150"}

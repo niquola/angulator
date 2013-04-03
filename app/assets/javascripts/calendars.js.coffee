@@ -2,23 +2,22 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 window.CalendarCnt = ($scope, $routeParams, $http)->
-  vertical_step = 50
-  $scope.height = 40*24
-  $scope.width = 450
-  $scope.columnWidth = 150
-  $scope.spanHeight = 20
-
   $http.get('/calendar.json').success (data)->
     angular.extend($scope, data)
 
 
 window.myapp.
-  directive 'draggable', ($document)->
+  directive 'calendar', ($document)->
     return (scope, element, attr)->
-      spanHeight = scope.spanHeight
-      columnWidth = scope.columnWidth
-      maxHeight = scope.height
-      maxWidth = scope.width - columnWidth
+      numColumns = parseInt(attr.columns)
+
+      spanHeight = 40
+      columnWidth = 150
+
+      maxHeight = spanHeight * 24
+      maxWidth = (numColumns - 1) * columnWidth
+      eventNode = null
+      element.css(height: maxHeight, width: numColumns * columnWidth)
 
       startX=0
       startY=0
@@ -28,33 +27,33 @@ window.myapp.
       calculateX = (x)->
         x = 0 if x < 0
         x = maxWidth if x > maxWidth
+        x = Math.floor((x + columnWidth/2)/columnWidth) * columnWidth
         x
 
       calculateY = (y) ->
         y = 0 if y < 0
         y = maxHeight if y > maxHeight
+        y = Math.floor(y/spanHeight) * spanHeight
         y
 
       mousemove = (event)->
-        dy = y + event.screenY - startY
-        dx = x + event.screenX - startX
-        dy = Math.floor(dy/spanHeight) * spanHeight
-        dx = Math.floor((dx + columnWidth/2)/columnWidth) * columnWidth
-        element.css(top: dy, left: dx)
+        dy = calculateY(y + event.screenY - startY)
+        dx = calculateX(x + event.screenX - startX)
+        eventNode.css(top: dy, left: dx)
 
       mouseup = ()->
         dy = calculateY(y + event.screenY - startY)
         dx = calculateX(x + event.screenX - startX)
-        dy = Math.floor(dy/spanHeight) * spanHeight
-        dx = Math.floor((dx + columnWidth/2)/columnWidth) * columnWidth
-        element.css(top: dy, left: dx,opacity:1)
+        eventNode.css(top: dy, left: dx,opacity:1)
 
         $document.unbind('mousemove', mousemove)
         $document.unbind('mouseup', mouseup)
+        eventNode = null
 
-      element.mousedown (event)->
-        element.css(opacity: 0.7)
-        position = element.position()
+      element.delegate '.event','mousedown', (event)->
+        eventNode = $(this)
+        eventNode.css(opacity: 0.7)
+        position = eventNode.position()
         y = position.top
         x = position.left
         startX = event.screenX
