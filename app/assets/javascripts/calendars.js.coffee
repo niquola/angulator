@@ -38,6 +38,8 @@ window.myapp.
       mousemove = (event)->
         dy = y + event.screenY - startY
         dx = x + event.screenX - startX
+        dy = Math.floor(dy/spanHeight) * spanHeight
+        dx = Math.floor((dx + columnWidth/2)/columnWidth) * columnWidth
         element.css(top: dy, left: dx)
 
       mouseup = ()->
@@ -45,12 +47,13 @@ window.myapp.
         dx = calculateX(x + event.screenX - startX)
         dy = Math.floor(dy/spanHeight) * spanHeight
         dx = Math.floor((dx + columnWidth/2)/columnWidth) * columnWidth
-        element.css(top: dy, left: dx)
+        element.css(top: dy, left: dx,opacity:1)
 
         $document.unbind('mousemove', mousemove)
         $document.unbind('mouseup', mouseup)
 
       element.mousedown (event)->
+        element.css(opacity: 0.7)
         position = element.position()
         y = position.top
         x = position.left
