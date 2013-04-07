@@ -1,0 +1,2 @@
+module MonthlyResourcesHelper
+end

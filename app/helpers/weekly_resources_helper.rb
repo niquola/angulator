@@ -1,0 +1,2 @@
+module WeeklyResourcesHelper
+end

@@ -1,0 +1,22 @@
+.row(ng-controller="WeeklyResourcesCnt")
+  .span3
+    %h3 Hello
+  .span9
+    %a.btn <
+    %a.btn prev week
+    %a.btn this week
+    %a.btn next week
+    %a.btn >
+    %hr
+    %table.table.table-bordered.table-condensed
+      %thead
+        %tr
+          %th(ng-repeat="res in resources") {{res.name}}
+      %tbody
+        %tr
+          %td(ng-repeat="res in resources")
+            %ul
+              %li(ng-repeat="ev in res.events") {{ev.label}}
+
+
+

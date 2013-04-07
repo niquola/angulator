@@ -1,0 +1,30 @@
+.row(ng-controller="ResourcesCnt")
+  .span9
+    %a.btn(href=monthly_resources_path) Month
+    %a.btn(href=weekly_resources_path) Week
+    %a.btn Day
+
+    %table.table
+      %thead
+        %tr
+          %th &nbsp;
+          %th(ng-repeat="res in resources") {{res.name}}
+      %tbody
+        %tr(ng-repeat="slot in slots")
+          %th {{slot}}
+          %td(ng-repeat="res in resources") Visit 1
+  .span3
+    %ul.nav
+      %li
+        %input(ng-model="resourceSearch" type="text")
+      %li(ng-repeat="res in resources | filter:resourceSearch") {{res.name}}
+    %form.form.well
+      %label Resource
+      %input(type="text")
+      %label Name
+      %input(type="text")
+      %label Time
+      %input(type="text")
+      %a.btn Save
+
+

@@ -1,0 +1,26 @@
+%div(ng-controller="MonthlyResourcesCnt")
+  %a.btn <
+  %a.btn Mart
+  %a.btn Apprel
+  %a.btn May
+  %a.btn >
+  %hr
+  %table.table.table-bordered.table-condensed
+    %thead
+      %tr
+        %th &nbsp;
+        %th Mon
+        %th Tue
+        %th Wen
+        %th Thu
+        %th Fri
+    %tbody
+      %tr(ng-repeat="week in month")
+        %td
+          %a(href="/weekly_resources/") Week
+        %td(ng-repeat="day in week")
+          %a(href="/resources/?day={{day.label}}")
+            %b {{day.label}}
+          %p(ng-repeat="res in day.resources") {{res.name}} {{res.load}}%
+
+

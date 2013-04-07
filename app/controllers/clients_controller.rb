@@ -1,5 +1,4 @@
 class ClientsController < ApplicationController
-  respond_to :json, :html
 
   def index
     limit = 10

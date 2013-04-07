@@ -29,10 +29,11 @@
               %li= link_to "Clients", "/clients"
               %li= link_to "Calendar", "/calendar"
               %li= link_to "Roadmaps", "/roadmaps"
+              %li= link_to "Resoureces", "/resources"
 
     .container
       %div
         %div{'ng-view'=>''}
-      %footer
-        %p &copy; Company 2013
+      -#%footer
+        -#%p &copy; Company 2013
     = javascript_include_tag "application"
