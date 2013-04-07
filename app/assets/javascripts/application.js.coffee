@@ -13,12 +13,13 @@
 #= require jquery
 #= require jquery_ujs
 #= require 'lib/angular'
+#= require jquery.ui.all
+#= require angular-ui
 #= require_self
 #= require_tree .
 #= require_tree ./directives
-#
-##= require twitter/bootstrap
-window.myapp = angular.module 'myapp', [], ($routeProvider, $locationProvider)->
+#= require twitter/bootstrap
+window.myapp = angular.module 'myapp', ['ui'], ($routeProvider, $locationProvider)->
   resources = (name)->
     $routeProvider.when "/#{name}/",
       templateUrl: "/#{name}.tpl"

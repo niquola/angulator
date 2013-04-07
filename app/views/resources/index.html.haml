@@ -1,30 +1,65 @@
-.row(ng-controller="ResourcesCnt")
-  .span9
-    %a.btn(href=monthly_resources_path) Month
-    %a.btn(href=weekly_resources_path) Week
-    %a.btn Day
+%div(ng-controller="ResourcesCnt")
+  .row
+    .span3
+      %div{"ng-model" => "date", "ui-date" => ""}
+      %h3 Resources
+      %ul.nav
+        %li(ng-repeat="res in resources | filter:resourceSearch")
+          %input(type="checkbox")
+          {{res.name}}
+    .span9
+      .row
+        .span4
+          %a.btn(ng-click="prevDay()") <
+          %a.btn(ng-click="nextDay()") >
+          %b {{date | date}}
+        .btn-group.pull-right
+          %a.btn(href=monthly_resources_path) Month
+          %a.btn(href=weekly_resources_path) Week
+          %a.btn Day
+      %hr
+      .row
+        .span1
+          %h4 &nbsp;
+          %ul.nav
+            %li.slot(ng-repeat="slot in slots")
+              {{slot}}
+        .span2(ng-repeat="res in resources")
+          %h4 {{res.name}}
+          %ul.nav
+            %li.slot(ng-repeat="slot in res.slots" ng-click="onSlot(res, slot)")
+              {{slot.service}} {{slot.name}} {{slot.phone}}&nbsp;
 
-    %table.table
-      %thead
-        %tr
-          %th &nbsp;
-          %th(ng-repeat="res in resources") {{res.name}}
-      %tbody
-        %tr(ng-repeat="slot in slots")
-          %th {{slot}}
-          %td(ng-repeat="res in resources") Visit 1
-  .span3
-    %ul.nav
-      %li
-        %input(ng-model="resourceSearch" type="text")
-      %li(ng-repeat="res in resources | filter:resourceSearch") {{res.name}}
-    %form.form.well
-      %label Resource
-      %input(type="text")
-      %label Name
-      %input(type="text")
-      %label Time
-      %input(type="text")
-      %a.btn Save
-
-
+  .modal(ng-show="currentSlot")
+    .modal-header
+      %button.close(ng-click="currentSlot=null") &times;
+      %h3 {{currentSlot.resource.name}}
+    .modal-body
+      %form.form-horizontal
+        .control-group
+          %label.control-label Time
+          .controls
+            %select(ng-model="currentSlot.time" ng-options="value for value in slots")
+        .control-group
+          %label.control-label Service
+          .controls
+            %input(ng-model="currentSlot.service" type="text")
+        .control-group
+          %label.control-label Duration
+          .controls
+            %input(ng-model="currentSlot.duration" type="number")
+        .control-group
+          %label.control-label Phone
+          .controls
+            %input(ng-model="currentSlot.phone" type="text")
+        .control-group
+          %label.control-label Name
+          .controls
+            %input(ng-model="currentSlot.name" type="text")
+        .control-group
+          %label.control-label Email
+          .controls
+            %input(ng-model="currentSlot.email" type="email")
+    .modal-footer
+      %a.btn(href="#" ng-click="currentSlot=null") Close
+      %a.btn.btn-primary{:href => "#"} Save changes
