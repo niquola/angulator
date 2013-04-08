@@ -8,11 +8,12 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
  *= require jquery.ui.all
+ *= require jquery-ui/css/custom-theme/jquery-ui-1.10.0.custom.css
  *= require angular-ui
  *= require_tree .
  */
 
 body { padding-top: 60px; }
 a:hover { cursor: pointer; }
+.ui-datepicker {border: none;}

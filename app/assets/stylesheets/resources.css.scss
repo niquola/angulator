@@ -7,3 +7,18 @@
   }
   border-bottom: 1px solid #ddd;
 }
+.col {
+  padding: 0 3px;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0.1ex;
+  height: 2600px;
+  position: relative;
+  .event {
+    outline: 1px solid #ddd;
+    position: absolute;
+    height: 37px;
+    width: 7em;
+    background: #eee;
+  }
+}

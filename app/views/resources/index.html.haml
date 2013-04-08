@@ -18,17 +18,15 @@
           %a.btn(href=weekly_resources_path) Week
           %a.btn Day
       %hr
-      .row
-        .span1
-          %h4 &nbsp;
-          %ul.nav
-            %li.slot(ng-repeat="slot in slots")
-              {{slot}}
-        .span2(ng-repeat="res in resources")
-          %h4 {{res.name}}
-          %ul.nav
-            %li.slot(ng-repeat="slot in res.slots" ng-click="onSlot(res, slot)")
-              {{slot.service}} {{slot.name}} {{slot.phone}}&nbsp;
+      .col>
+        %b &nbsp;
+        %table.table.table-bordered.table-condenced
+          %tr.slot(ng-repeat="slot in slots")
+            %td {{slot}}
+      .col(ng-repeat="res in resources")<
+        %b {{res.name}}
+        .event(ng-repeat="event in res.events" ng-style="position(event)" ng-click="onSlot(res, event)")
+          {{event.service}} {{event.name}} {{event.phone}}&nbsp;
 
   .modal(ng-show="currentSlot")
     .modal-header

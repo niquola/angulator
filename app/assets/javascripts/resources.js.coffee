@@ -3,6 +3,8 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 window.ResourcesCnt = ($scope, $routeParams, $http)->
   $scope.date = new Date()
+  $scope.position = (event)->
+    {top: event.time * 37  + 21}
 
   $scope.prevDay = ->
     $scope.date = new Date($scope.date - 1000*60*60*24)

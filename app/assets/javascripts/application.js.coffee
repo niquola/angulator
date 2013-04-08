@@ -12,8 +12,9 @@
 #
 #= require jquery
 #= require jquery_ujs
+#= require jquery-ui/js/jquery-1.8.3.min.js
+#= require jquery-ui/js/jquery-ui-1.9.2.custom.min.js
 #= require 'lib/angular'
-#= require jquery.ui.all
 #= require angular-ui
 #= require_self
 #= require_tree .

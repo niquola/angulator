@@ -5,27 +5,17 @@ class ResourcesController < ApplicationController
     dates = (0..3).map{|i| now + i.days}
     resources= [
       {name: 'Ali Sahudinov',
-       slots: [
-          {time: '00:00'},
-          {time: '01:00', service: 'Strijka'},
-          {time: '02:00'},
-          {time: '03:00'},
-          {time: '04:00', service: 'Nogti'},
-          {time: '05:00'},
-          {time: '06:00'},
-          {time: '07:00'}
+       events: [
+          {time: 1, service: 'Strijka'},
+          {time: 4, service: 'Nogti'},
+          {time: 23, service: 'Nogti'},
        ]
       },
-      {name: 'Zajcev S.',
-       slots: [
-          {time: '00:00'},
-          {time: '01:00', service: 'Strijka'},
-          {time: '02:00'},
-          {time: '03:00'},
-          {time: '04:00', service: 'Nogti'},
-          {time: '05:00'},
-          {time: '06:00'},
-          {time: '07:00'}
+      {name: 'Arni',
+       events: [
+          {time: 6, service: 'Strijka'},
+          {time: 14, service: 'Nogti'},
+          {time: 21, service: 'Nogti'},
        ]
       }
     ]
