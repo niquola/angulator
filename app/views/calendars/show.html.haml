@@ -1,13 +1,3 @@
-.clnd.row{'ng-controller' => 'CalendarCnt'}
-  .span3
-    %h2 Ups drag items
-  .span9
-    .cal(calendar columns="5")
-      .event(style="position: absolute; top:80px; left:0; height: 20px;") Hello
-      .event(style="position: absolute; top:40px; left:0; height: 20px;") Hello
-      %svg.grid{:xmlns => "http://www.w3.org/2000/svg"}
-        %defs
-          %pattern#grid{:height => "40", :patternunits => "userSpaceOnUse", :width => "150"}
-            %path{:d => "M 150 0 L 0 0 0 40", :fill => "none", :stroke => "gray", "stroke-width" => "1"}
-            %path{:d => "M 150 20 L 0 20", :fill => "none", :stroke => "#aaa", "stroke-width" => "1"}
-        %rect{:fill => "url(#grid)", :height => "100%", :width => "100%"}/
+.cnt(ng-controller="CalTestCnt")
+  %button(ng-click="addMore()") Add
+  %div(calendar time-slots="times" columns="cols")

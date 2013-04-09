@@ -26,7 +26,7 @@ window.myapp = angular.module 'myapp', ['ui'], ($routeProvider, $locationProvide
       templateUrl: "/#{name}.tpl"
 
     $routeProvider.when "/#{name}/:id/edit",
-      templateUrl: "/#{name}/0/#{name}.tpl"
+      templateUrl: "/#{name}/0/edit.tpl"
 
     $routeProvider.when "/#{name}/new",
       templateUrl: "/#{name}/new.tpl"
@@ -34,12 +34,8 @@ window.myapp = angular.module 'myapp', ['ui'], ($routeProvider, $locationProvide
     $routeProvider.when "/#{name}/:id",
       templateUrl: "/#{name}/0.tpl"
 
-  resources 'clients'
-  resources 'calendar'
-  resources 'directives'
-  resources 'roadmaps'
-  resources 'resources'
-  resources 'monthly_resources'
-  resources 'weekly_resources'
+  <% AngularRoutes.resources.each do |res| %>
+  resources '<%= res %>'
+  <% end %>
 
   $locationProvider.html5Mode(true)
